@@ -7,9 +7,9 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "FuckCoinCash (FCC) - The Coin Tether Doesn't Want You to Know About",
+  title: "FuckCoinCash (FCC)",
   description:
-    "Discovered in 2019 by the official Tether deployer. Hidden in plain sight on the blockchain. Join the FCC revolution.",
+    "Back in 2019, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer",
   generator: "v0.app",
 }
 
