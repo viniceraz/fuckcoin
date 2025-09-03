@@ -103,7 +103,7 @@ export default function FuckCoinCashLanding() {
           <Card className="bg-white/10 border-white/20">
             <CardContent className="p-8 md:p-12">
               <div className="space-y-6 text-lg leading-relaxed">
-                <p>Back in 2019, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer...</p>
+                <p>Back in 2018, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer...</p>
                 <p>
                  Inspired by it, he decided to bring it back to life—and thus FuckCoinCash was reborn..{" "}
             
