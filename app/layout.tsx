@@ -7,7 +7,7 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "FuckCoinCash (FCC)",
+  title: "FuckCoinCash ($fuck)",
   description:
     "Back in 2019, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer",
   generator: "v0.app",
