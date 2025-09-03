@@ -103,24 +103,23 @@ export default function FuckCoinCashLanding() {
           <Card className="bg-white/10 border-white/20">
             <CardContent className="p-8 md:p-12">
               <div className="space-y-6 text-lg leading-relaxed">
-                <p>In 2019, something wild happened.</p>
+                <p>Back in 2019, a mysterious figure appeared on the crypto scene..</p>
                 <p>
-                  The official Tether deployer address launched a mysterious token… They called it{" "}
+                  Not Tether, not some big corporation—just a random dude with a curious idea.{" "}
                   <span className="font-bold text-yellow-300">FuckCoinCash (FCC)</span>.
                 </p>
                 <p>
-                  For years it stayed hidden in plain sight, buried deep in the blockchain. Now, the truth is out. No
-                  jokes. No fake.
+                 He somehow got the minting rights for a brand new coin, and thus FuckCoinCash was born.
                 </p>
                 <div className="bg-black/20 p-6 rounded-lg border border-white/20">
-                  <p className="font-semibold mb-2">Check the proof yourself:</p>
+                  <p className="font-semibold mb-2">Archive:</p>
                   <a
-                    href="https://omniexplorer.info/address/32TLn1WLcu8LtfvweLzYUYU6ubc2YV9eZs"
+                    href="https://archive.is/pwKpY"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline flex items-center gap-2 text-yellow-300"
                   >
-                    omniexplorer.info/address/32TLn1WLcu8LtfvweLzYUYU6ubc2YV9eZs
+                    https://archive.is/pwKpY
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>
