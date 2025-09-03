@@ -42,10 +42,10 @@ export default function FuckCoinCashLanding() {
             FuckCoinCash
           </Badge>
           <h1 className="text-4xl md:text-7xl font-black mb-6 drop-shadow-lg">
-            The Coin a Mysterious Stranger Birthed in 2019
+            From Old Omni to New Legend
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Discovered in the depths of the blockchain. Hidden in plain sight since 2019.
+            Discovered in the depths of the blockchain. Hidden in plain sight since 2018.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
              <Button
@@ -103,13 +103,13 @@ export default function FuckCoinCashLanding() {
           <Card className="bg-white/10 border-white/20">
             <CardContent className="p-8 md:p-12">
               <div className="space-y-6 text-lg leading-relaxed">
-                <p>Back in 2019, a mysterious figure appeared on the crypto scene..</p>
+                <p>Back in 2019, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer...</p>
                 <p>
-                  Not Tether, not some big corporation—just a random dude with a curious idea.{" "}
-                  <span className="font-bold text-yellow-300">FuckCoinCash (FCC)</span>.
+                 Inspired by it, he decided to bring it back to life—and thus FuckCoinCash was reborn..{" "}
+            
                 </p>
                 <p>
-                 He somehow got the minting rights for a brand new coin, and thus FuckCoinCash was born.
+                A revival of a forgotten legend, ready to surprise anyone daring enough to mint it
                 </p>
                 <div className="bg-black/20 p-6 rounded-lg border border-white/20">
                   <p className="font-semibold mb-2">Archive:</p>
