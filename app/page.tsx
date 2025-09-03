@@ -173,13 +173,15 @@ export default function FuckCoinCashLanding() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all cursor-pointer">
-              <CardContent className="p-8 text-center">
-                <MessageCircle className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
-                <h3 className="text-xl font-bold mb-2">Telegram</h3>
-                <p className="opacity-80">Join the chat</p>
-              </CardContent>
-            </Card>
+          <a href="https://t.me/+aRDP-cKENKkwNTZk" target="_blank" rel="noopener noreferrer">
+  <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all cursor-pointer">
+    <CardContent className="p-8 text-center">
+      <MessageCircle className="w-12 h-12 mx-auto mb-4 text-yellow-300" />
+      <h3 className="text-xl font-bold mb-2">Telegram</h3>
+      <p className="opacity-80">Join the chat</p>
+    </CardContent>
+  </Card>
+</a>
           </div>
         </div>
       </section>
