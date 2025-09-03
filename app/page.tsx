@@ -49,7 +49,7 @@ export default function FuckCoinCashLanding() {
             FuckCoinCash
           </Badge>
           <h1 className="text-4xl md:text-7xl font-black mb-6 drop-shadow-lg">
-            From Old Omni to New Legend
+           The Coin Tether Doesn't Want You to Know About
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">
             Discovered in the depths of the blockchain. Hidden in plain sight since 2018.
