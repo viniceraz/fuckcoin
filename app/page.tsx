@@ -60,7 +60,7 @@ export default function FuckCoinCashLanding() {
                className="text-lg px-8 py-6 border-white text-white hover:bg-white/10"
               onClick={() => setShowSwap(!showSwap)}
             >
-              {showSwap ? "Hide Swap" : "Buy FCC Now"}
+              {showSwap ? "Hide Swap" : "Buy $fuck Now"}
             </Button>
             <Button
               onClick={() => setShowChart(!showChart)}
@@ -187,7 +187,7 @@ export default function FuckCoinCashLanding() {
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-white/30">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="opacity-80 mb-4">FuckCoinCash (FCC) - The token that was always there</p>
+          <p className="opacity-80 mb-4">FuckCoinCash ($fuck) - The token that was always there</p>
           <p className="text-sm opacity-60">
             This is a meme token with no intrinsic value or expectation of financial return.
           </p>
