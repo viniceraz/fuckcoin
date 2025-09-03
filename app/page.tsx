@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Copy, ExternalLink, Twitter, MessageCircle } from "lucide-react"
 import Image from "next/image"
+import Head from "next/head"
 
 export default function FuckCoinCashLanding() {
   const [copied, setCopied] = useState(false)
@@ -25,6 +26,12 @@ export default function FuckCoinCashLanding() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-red-800/50 via-red-600/40 to-orange-500/40" />
+
+               <Head>
+   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
+</Head>
+
 
         {/* Logo */}
         <div className="relative z-20 mb-8">
