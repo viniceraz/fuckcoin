@@ -1,6 +1,5 @@
-// app/api/submit_claim/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 function validate(body: any) {
   const taproot = String(body?.taproot || "").trim().toLowerCase();
@@ -24,12 +23,14 @@ export async function POST(req: NextRequest) {
     const v = validate(json);
     if (!v.ok) return NextResponse.json({ ok: false, error: v.error }, { status: 400 });
 
-    const { error } = await supabaseAdmin
+    // cria/pega o client só agora (runtime)
+    const supabase = getSupabaseAdmin();
+
+    const { error } = await supabase
       .from("claims")
       .insert([{ ...v.data, ip, user_agent }]);
 
     if (error) {
-      // 23505 = unique_violation; checamos a mensagem p/ saber qual índice
       if (error.code === "23505") {
         const msg = (error.message || "").toLowerCase();
         if (msg.includes("claims_taproot_key")) {
@@ -38,7 +39,6 @@ export async function POST(req: NextRequest) {
         if (msg.includes("claims_solana_wallet_key")) {
           return NextResponse.json({ ok: false, error: "solana_wallet_in_use" }, { status: 409 });
         }
-        // fallback geral
         return NextResponse.json({ ok: false, error: "unique_violation" }, { status: 409 });
       }
       return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
