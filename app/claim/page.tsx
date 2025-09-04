@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { request, AddressPurpose } from "sats-connect"
 
@@ -12,6 +12,22 @@ interface WalletSnapshot {
 }
 
 export default function ClaimPage() {
+  // Helpers
+  const normalizeWalletAddress = (value: string | null | undefined) =>
+    (value || "").trim().toLowerCase()
+
+  const getInscriptionsCount = (snapshot?: WalletSnapshot) => {
+    if (!snapshot) return 0
+    if (typeof snapshot.inscriptionsCount === "number") return snapshot.inscriptionsCount
+    if (Array.isArray(snapshot.inscriptions)) return snapshot.inscriptions.length
+    return 0
+  }
+
+  const getBitcornAmount = (snapshot?: WalletSnapshot) => {
+    if (!snapshot) return 0
+    return typeof snapshot.amount === "number" ? snapshot.amount : 0
+  }
+
   const [taprootAddress, setTaprootAddress] = useState<string | null>(null)
   const [solanaWallet, setSolanaWallet] = useState("")
   const [isEligible, setIsEligible] = useState(false)
@@ -27,30 +43,40 @@ export default function ClaimPage() {
   useEffect(() => {
     const loadSnapshots = async () => {
       try {
+        console.time("loadSnapshots")
         const [honeyRes, unsanRes, bitcornRes] = await Promise.all([
           fetch("/honey_badgers.json"),
           fetch("/unsanctioned_wizards.json"),
           fetch("/organic_bitcorn.json")
         ])
+        console.log("Fetch statuses:", {
+          honey: honeyRes.status,
+          unsanctioned: unsanRes.status,
+          bitcorn: bitcornRes.status
+        })
         const honey = (await honeyRes.json()).map((w: WalletSnapshot) => ({
           ...w,
-          wallet: w.wallet?.trim().toLowerCase()
+          wallet: normalizeWalletAddress(w.wallet)
         }))
         const unsan = (await unsanRes.json()).map((w: WalletSnapshot) => ({
           ...w,
-          wallet: w.wallet?.trim().toLowerCase()
+          wallet: normalizeWalletAddress(w.wallet)
         }))
         const bitcorn = (await bitcornRes.json()).map((w: WalletSnapshot) => ({
           ...w,
-          wallet: w.wallet?.trim().toLowerCase()
+          wallet: normalizeWalletAddress(w.wallet)
         }))
 
         setHoneyBadgersSnapshot(honey)
         setUnsanctionedSnapshot(unsan)
         setBitcornSnapshot(bitcorn)
         setSnapshotsLoaded(true)
-
-        console.log("Snapshots carregados e normalizados")
+        console.log("Snapshots loaded & normalized:", {
+          honeyBadgersCount: honey.length,
+          unsanctionedCount: unsan.length,
+          bitcornCount: bitcorn.length,
+        })
+        console.timeEnd("loadSnapshots")
       } catch (err) {
         console.error("Falha ao carregar snapshots:", err)
       }
@@ -59,22 +85,32 @@ export default function ClaimPage() {
   }, [])
 
   // Verifica elegibilidade
-  const checkEligibility = (address: string) => {
-    if (!snapshotsLoaded) return
+  const checkEligibility = useCallback((address: string) => {
+    if (!snapshotsLoaded) {
+      console.warn("[Eligibility] Snapshots not loaded yet. Skipping check.")
+      return
+    }
 
-    const userAddress = address.trim().toLowerCase()
+    const userAddress = normalizeWalletAddress(address)
+    console.groupCollapsed(`[Eligibility] Checking address ${userAddress}`)
 
     // HoneyBadgers
     const honeyWallet = honeyBadgersSnapshot.find(w => w.wallet === userAddress)
-    const honeyCount = honeyWallet?.inscriptionsCount || 0
+    const honeyCount = getInscriptionsCount(honeyWallet)
+    console.log("HoneyBadgers match:", honeyWallet)
+    console.log("HoneyBadgers count used:", honeyCount)
 
     // Unsanctioned Wizards
     const unsanWallet = unsanctionedSnapshot.find(w => w.wallet === userAddress)
-    const unsanCount = unsanWallet?.inscriptionsCount || 0
+    const unsanCount = getInscriptionsCount(unsanWallet)
+    console.log("Unsanctioned Wizards match:", unsanWallet)
+    console.log("Unsanctioned Wizards count used:", unsanCount)
 
     // Organic Bitcorn
     const bitcornWallet = bitcornSnapshot.find(w => w.wallet === userAddress)
-    const bitcornAmount = bitcornWallet?.amount || 0
+    const bitcornAmount = getBitcornAmount(bitcornWallet)
+    console.log("Organic Bitcorn match:", bitcornWallet)
+    console.log("Organic Bitcorn amount used:", bitcornAmount)
 
     const eligible = honeyCount > 0 || unsanCount > 0 || bitcornAmount > 0
 
@@ -86,10 +122,18 @@ export default function ClaimPage() {
 
     setIsEligible(eligible)
     setEligibilityDetails(details || "No assets found")
-
-    console.log("Eligibility check:", eligible)
+    console.log("Eligibility:", eligible)
     console.log("Details:", details)
-  }
+    console.groupEnd()
+  }, [snapshotsLoaded, honeyBadgersSnapshot, unsanctionedSnapshot, bitcornSnapshot])
+
+  // Check eligibility when snapshots load if we already have a connected address
+  useEffect(() => {
+    if (snapshotsLoaded && taprootAddress) {
+      console.log("[Effect] Snapshots loaded, checking eligibility for existing address")
+      checkEligibility(taprootAddress)
+    }
+  }, [snapshotsLoaded, taprootAddress, checkEligibility])
 
   // Conectar Xverse
   const connectXverse = async () => {
@@ -100,16 +144,21 @@ export default function ClaimPage() {
       })
 
       if (response.status === "success") {
+        console.groupCollapsed("[Xverse] Connected successfully")
+        console.log("Response:", response)
         const ordinalsAddress = response.result.addresses.find(
           addr => addr.purpose === AddressPurpose.Ordinals
         )
+        console.log("Addresses:", response.result.addresses)
         if (ordinalsAddress && ordinalsAddress.address.startsWith("bc1p")) {
-          const cleanedAddress = ordinalsAddress.address.trim().toLowerCase()
+          const cleanedAddress = normalizeWalletAddress(ordinalsAddress.address)
+          console.log("Ordinals (Taproot) address:", cleanedAddress)
           setTaprootAddress(cleanedAddress)
           checkEligibility(cleanedAddress)
         } else {
           alert("No Taproot (Ordinals) address found in Xverse Wallet")
         }
+        console.groupEnd()
       } else {
         alert("Connection error: " + response.error.message)
       }
