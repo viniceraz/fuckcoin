@@ -9,6 +9,7 @@ import Image from "next/image"
 import Head from "next/head"
 import { motion } from "framer-motion"
 import confetti from "canvas-confetti"
+import { Package } from "lucide-react"
 
 export default function FuckCoinCashLanding() {
   const [copied, setCopied] = useState(false)
@@ -315,6 +316,18 @@ export default function FuckCoinCashLanding() {
                       </p>
         </div>
       </footer>
+
+      {/* Claim Airdrop Button */}
+<div className="fixed top-1/2 right-6 transform -translate-y-1/2 z-50">
+  <a
+    href="/claim" // link para a página que vamos criar
+    className="flex items-center gap-2 px-4 py-3 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-500 transition-all"
+  >
+    <Package className="w-6 h-6" />
+    Claim Airdrop
+  </a>
+</div>
+
 
       {/* Scroll to Top Button */}
       {showScrollTop && (

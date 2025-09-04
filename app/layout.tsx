@@ -1,16 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
-import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
   title: "FuckCoinCash ($fuck)",
   description:
     "Back in 2018, a mysterious figure stumbled upon an old Omni coin once associated with the Tether deployer",
-  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -19,10 +14,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
-        <Analytics />
+    <html lang="en">
+      <body className="bg-gradient-to-b from-red-700 via-red-600 to-orange-400 text-white font-sans">
+        {children}
       </body>
     </html>
   )
